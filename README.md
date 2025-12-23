@@ -1,41 +1,56 @@
-Dijital Görüntü İşleme: Akıllı Belge Tarayıcı ve Perspektif Düzeltme
-Bu proje, bir fotoğraf içerisindeki belgeyi otomatik olarak tespit eden, arka plandan ayıran ve perspektif açısını düzelterek belgeyi dijital bir tarama haline getiren bir görüntü işleme uygulamasıdır.
+📑 Dijital Görüntü İşleme: Akıllı Belge Tarayıcı
 
-📌 Projenin Amacı
-Düşük açıyla veya yamuk çekilmiş belge fotoğraflarının, görüntü işleme algoritmaları kullanılarak sanki bir tarayıcıdan çıkmış gibi dikey ve düzgün bir forma getirilmesini sağlamaktır.
+Bu proje, görüntü işleme algoritmaları kullanarak fiziksel belgelerin dijital ortama aktarılmasını sağlayan bir Smart Document Scanner uygulamasıdır. 
+Standart bir kamera çekimindeki yamuklukları ve arka plan gürültülerini temizleyerek profesyonel bir tarama çıktısı üretir.
 
-🛠 Kullanılan Teknikler ve Kütüphaneler
-Proje Python diliyle geliştirilmiş olup şu kütüphaneleri kullanır:
+🎯 Projenin Amacı
 
-OpenCV: Görüntü segmentasyonu, morfolojik işlemler ve perspektif dönüşümleri için.
+Perspektif hatası içeren (açılı çekilmiş) belgeleri, dijital görüntü işleme teknikleri ile normalize ederek sanki bir masaüstü tarayıcıdan geçirilmiş gibi dikey, 
+düz ve temiz bir forma dönüştürmektir.
 
-NumPy: Matris hesaplamaları ve köşe koordinatlarının matematiksel analizi için.
 
-📖 Uygulama Adımları
-Rescaling (Ölçeklendirme): İşlem hızını artırmak ve GrabCut algoritmasını verimli çalıştırmak için görüntü boyutları optimize edilir.
+🛠 Kullanılan Teknolojiler ve Yöntemler
 
-GrabCut Segmentasyonu: Belgeyi (ön plan) masa veya zeminden (arka plan) ayırmak için iteratif bir bölütleme işlemi uygulanır.
+PythonProjenin ana programlama dili.
+OpenCVSegmentasyon, morfoloji ve geometrik dönüşümler.
+NumPyMatris işlemleri ve koordinat sıralama matematiği.
+GrabCutNesneyi (belge) arka plandan ayıran segmentasyon algoritması.
 
-Morfolojik Filtreleme: Segmentasyon sonrası oluşan pürüzleri temizlemek için MORPH_CLOSE (Kapama) ve MORPH_OPEN (Açma) işlemleri uygulanır.
+📖 Uygulama İş Akışı (Pipeline)
 
-Kontur ve Köşe Tespiti: Temizlenen maske üzerindeki en büyük dörtgen yapı bulunur ve köşe noktaları (Sol Üst, Sağ Üst, Sağ Alt, Sol Alt) matematiksel olarak sıralanır.
+Uygulama temel olarak 5 aşamadan oluşmaktadır:
 
-Perspektif Dönüşümü: getPerspectiveTransform ve warpPerspective fonksiyonları ile kağıt üzerindeki yamukluk giderilerek nihai sonuç elde edilir.
+1-Ön İşleme (Rescaling): Bellek yönetimini optimize etmek ve algoritmaların işlem süresini kısaltmak için görüntü ölçeklendirilir.
 
-🚀 Kurulum ve Kullanım
-Gereksinimler
-Sistemde Python yüklü olmalıdır. Gerekli kütüphaneleri şu komutla yükleyebilirsiniz:
+2-Segmentasyon (GrabCut): Kullanıcı müdahalesine gerek kalmadan, görüntüdeki ön plan (belge) ve arka plan (zemin) birbirinden ayrıştırılır.
 
-pip install opencv-python numpy
+3-Morfolojik Filtreleme: MORPH_CLOSE ile maskedeki boşluklar doldurulur, MORPH_OPEN ile kenar pürüzleri giderilir.
 
-Çalıştırma
-Dosyayı terminal üzerinden şu şekilde çalıştırabilirsiniz:
+4-Kontur ve Köşe Tespiti: Belgeyi temsil eden en geniş poligon bulunur. Bulunan koordinatlar; Sol Üst, Sağ Üst, Sağ Alt ve Sol Alt şeklinde matematiksel olarak sıralanır.
 
-python belge_tarayici.py
+5-Perspektif Dönüşümü: getPerspectiveTransform ve warpPerspective fonksiyonları kullanılarak 2D düzleme aktarım (Homografi) gerçekleştirilir.
 
-📈 Beklenen Çıktılar
-Program çalıştığında iki aşamalı bir sonuç üretir:
+🚀 Kurulum ve Çalıştırma
+1. Gereksinimlerin Yüklenmesi
+Sisteminizde Python yüklü olmalıdır. 
+Ardından terminale şu komutu yazarak gerekli kütüphaneleri kurabilirsiniz:
 
-Tespit Ekranı: Orijinal resim üzerinde belgenin sınırlarının yeşil hatla çizildiği ekran.
 
-Sonuç Ekranı: Belgenin kesilmiş, düzeltilmiş ve taranmış hali. Ayrıca bu sonuç otomatik olarak taranan_belge.jpg adıyla kaydedilir.
+    pip install opencv-python numpy
+
+2. Uygulamanın Başlatılması
+Proje klasöründeyken şu komutu çalıştırın (Varsayılan olarak belge1.jpg okunacaktır):
+
+
+    python belge_tarayici.py
+
+
+📈 Çıktı Analizi
+
+Program başarılı bir şekilde çalıştığında şu çıktıları üretir:
+
+Tespit Penceresi: Orijinal görüntü üzerinde belgenin konumunu yeşil konturlar ile gösterir.
+
+Sonuç Penceresi: Kesilmiş, düzeltilmiş ve dikey forma getirilmiş son belge görüntüsü.
+
+Kayıt: İşlenen sonuç otomatik olarak taranan_belge.jpg adıyla yerel dizine kaydedilir.
