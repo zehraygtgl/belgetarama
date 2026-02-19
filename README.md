@@ -1,5 +1,6 @@
 📑 Dijital Görüntü İşleme: Akıllı Belge Tarayıcı
 
+
 Bu proje, görüntü işleme algoritmaları kullanarak fiziksel belgelerin dijital ortama aktarılmasını sağlayan bir Smart Document Scanner uygulamasıdır. 
 Standart bir kamera çekimindeki yamuklukları ve arka plan gürültülerini temizleyerek profesyonel bir tarama çıktısı üretir.
 
@@ -54,3 +55,4 @@ Tespit Penceresi: Orijinal görüntü üzerinde belgenin konumunu yeşil konturl
 Sonuç Penceresi: Kesilmiş, düzeltilmiş ve dikey forma getirilmiş son belge görüntüsü.
 
 Kayıt: İşlenen sonuç otomatik olarak taranan_belge.jpg adıyla yerel dizine kaydedilir.
+
